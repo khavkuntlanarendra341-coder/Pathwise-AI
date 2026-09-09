@@ -1,7 +1,13 @@
 from fastapi import APIRouter
 
 from schemas import StudentProfile, CareerResponse
-from services.recommendation_service import get_best_career
+from services.recommendation_service import (
+    get_best_career,
+    get_colleges,
+    get_scholarships,
+    get_skills_to_develop,
+    get_loan_recommendation,
+)
 from services.finance_service import calculate_financials
 
 router = APIRouter()
@@ -43,5 +49,13 @@ def analyze_student(student: StudentProfile):
         "scholarship": financials["scholarship"],
         "net_cost": financials["net_cost"],
         "salary": career["salary"],
-        "career_path": career["career_path"]
+        "career_path": career["career_path"],
+        "colleges": get_colleges(career, student.education),
+        "skills_to_develop": get_skills_to_develop(student, career),
+        "scholarship_matches": get_scholarships(student, career),
+        "loan_recommendation": get_loan_recommendation(
+            student,
+            financials["education_cost"],
+            financials["scholarship"]
+        )
     }

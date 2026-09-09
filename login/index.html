@@ -1,0 +1,73 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FinPath AI | Login</title>
+  <link rel="stylesheet" href="../style.css" />
+</head>
+<body class="auth-body">
+  <div class="auth-shell">
+    <aside class="auth-sidebar">
+      <a class="brand" href="/">
+        <span class="brand-mark">F</span>
+        <span class="brand-wordmark">FinPath AI</span>
+      </a>
+      <div class="auth-sidebar-content">
+        <span class="section-label">Career planning platform</span>
+        <h1>Plan your education with financial clarity.</h1>
+        <p>Compare costs, uncover scholarships, and map the right career pathway before you commit.</p>
+        <div class="auth-sidebar-stats">
+          <div>
+            <span class="big-number">92%</span>
+            <span class="small-label">Pathway confidence</span>
+          </div>
+          <div>
+            <span class="big-number">$18k+</span>
+            <span class="small-label">Savings identified</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+<main class="auth-panel">
+  <div class="auth-panel-inner">
+    <div class="auth-top">
+      <span class="section-label">Welcome back</span>
+      <a class="button button-secondary compact-button" href="/signup/">Create account</a>
+    </div>
+    <div class="auth-card">
+      <div class="auth-title-wrap">
+        <h2>Login to FinPath AI</h2>
+        <p>Enter your account details to continue.</p>
+      </div>
+      <form id="loginForm" class="auth-form">
+        <div class="form-field">
+          <label for="email">Email address</label>
+          <input type="email" id="email" name="email" autocomplete="email" required />
+        </div>
+        <div class="form-field">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" autocomplete="current-password" required minlength="8" />
+        </div>
+        <div class="form-options">
+          <label class="remember-row">
+            <input type="checkbox" name="remember" />
+            <span>Remember this device</span>
+          </label>
+          <a class="text-link" href="#">Forgot password?</a>
+        </div>
+        <div id="authError" class="auth-error" role="alert"></div>
+        <button class="button button-primary auth-submit" type="submit">Login to Dashboard</button>
+      </form>
+    </div>
+  </div>
+</main>
+
+  </div>
+
+  <script src="../auth.js"></script>
+
+</body>
+</html>

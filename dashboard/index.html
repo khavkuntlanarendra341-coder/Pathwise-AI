@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FinPath AI | Dashboard</title>
+  <link rel="stylesheet" href="../style.css" />
+  <style>
+    .dashboard-page { min-height: 100vh; padding: 32px clamp(20px, 5vw, 72px) 64px; background: #f6f8f5; }
+    .dashboard-header { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; margin: 0 auto 32px; max-width: 1180px; }
+    .dashboard-header h1 { margin: 6px 0 0; color: #18352d; }
+    .dashboard-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+    .dashboard-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; max-width: 1180px; margin: auto; }
+    .recommendation-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; max-width: 1180px; margin: 24px auto 0; }
+    .dashboard-panel { background: #fff; border: 1px solid #dce6df; border-radius: 8px; padding: 24px; box-shadow: 0 10px 30px rgba(24, 53, 45, .06); }
+    .dashboard-panel-wide { grid-column: 1 / -1; }
+    .dashboard-panel h2 { margin: 0 0 18px; color: #18352d; font-size: 1.2rem; }
+    .detail-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 24px; margin: 0; }
+    .detail-list div { min-width: 0; }
+    .detail-list dt { color: #6c7c74; font-size: .78rem; text-transform: uppercase; letter-spacing: .08em; }
+    .detail-list dd { margin: 4px 0 0; color: #18352d; font-weight: 600; overflow-wrap: anywhere; }
+    .skill-list { display: flex; flex-wrap: wrap; gap: 10px; }
+    .skill { background: #e9f2eb; border-radius: 999px; color: #245b43; padding: 8px 12px; font-size: .9rem; }
+    .empty-state { grid-column: 1 / -1; text-align: center; padding: 56px 24px; }
+    .empty-state p { color: #60736a; margin: 8px auto 24px; max-width: 520px; }
+    .muted { color: #6c7c74; }
+    .recommendation-hero { grid-column: 1 / -1; background: #18352d; color: #fff; }
+    .recommendation-hero h2 { color: #fff; font-size: 2rem; margin: 8px 0; }
+    .recommendation-hero .muted { color: #d8e7dc; }
+    .recommendation-metrics { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px; }
+    .recommendation-metric, .recommendation-item { border: 1px solid #dce6df; border-radius: 6px; padding: 12px; }
+    .recommendation-metric { border-color: rgba(255,255,255,.25); min-width: 130px; }
+    .recommendation-metric strong, .recommendation-item strong { display: block; color: #18352d; }
+    .recommendation-metric strong { color: #fff; font-size: 1.1rem; }
+    .recommendation-metric span, .recommendation-item span { color: #6c7c74; font-size: .82rem; }
+    .recommendation-metric span { color: #c6dbcc; }
+    .recommendation-list, .roadmap-list { display: grid; gap: 10px; }
+    .recommendation-item p { margin: 5px 0 0; color: #60736a; font-size: .9rem; }
+    .roadmap-step { display: flex; gap: 12px; align-items: flex-start; }
+    .roadmap-step b { background: #e9f2eb; border-radius: 50%; color: #245b43; min-width: 28px; height: 28px; text-align: center; padding-top: 5px; }
+    .loan-status { color: #245b43; font-weight: 700; margin: 0 0 12px; }
+    @media (max-width: 720px) { .dashboard-header { align-items: flex-start; flex-direction: column; } .dashboard-grid, .recommendation-grid { grid-template-columns: 1fr; } .dashboard-panel-wide, .recommendation-hero { grid-column: auto; } .detail-list { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <main class="dashboard-page">
+    <header class="dashboard-header">
+      <div>
+        <span class="section-label dark-label">FinPath AI student dashboard</span>
+        <h1 id="welcomeHeading">Welcome back</h1>
+      </div>
+      <div class="dashboard-actions">
+        <a class="button button-secondary compact-button" href="../onboarding-wizard.html">Edit profile</a>
+        <button class="button button-primary compact-button" type="button" data-logout>Log out</button>
+      </div>
+    </header>
+
+    <section id="profileEmpty" class="dashboard-panel empty-state" hidden>
+      <h2>Complete your student profile</h2>
+      <p>Add your personal information, college details, skills, finances, and career goals to get a useful pathway recommendation.</p>
+      <a class="button button-primary" href="../onboarding-wizard.html">Start onboarding</a>
+    </section>
+
+    <section id="profileDashboard" class="dashboard-grid" hidden>
+      <article class="dashboard-panel">
+        <h2>Personal details</h2>
+        <dl class="detail-list" id="personalDetails"></dl>
+      </article>
+      <article class="dashboard-panel">
+        <h2>College and education</h2>
+        <dl class="detail-list" id="educationDetails"></dl>
+      </article>
+      <article class="dashboard-panel dashboard-panel-wide">
+        <h2>Skills</h2>
+        <div class="skill-list" id="skillsDetails"></div>
+      </article>
+      <article class="dashboard-panel">
+        <h2>Financial situation</h2>
+        <dl class="detail-list" id="financialDetails"></dl>
+      </article>
+      <article class="dashboard-panel">
+        <h2>Career goals</h2>
+        <dl class="detail-list" id="careerDetails"></dl>
+      </article>
+    </section>
+
+    <section id="recommendationDashboard" class="recommendation-grid" hidden>
+      <article class="dashboard-panel recommendation-hero">
+        <span class="section-label dark-label">AI career recommendation</span>
+        <h2 id="recommendedCareer"></h2>
+        <p id="recommendationReason" class="muted"></p>
+        <div class="recommendation-metrics" id="recommendationMetrics"></div>
+      </article>
+      <article class="dashboard-panel">
+        <h2>Best-fit colleges</h2>
+        <div id="collegeRecommendations" class="recommendation-list"></div>
+      </article>
+      <article class="dashboard-panel">
+        <h2>Skills to learn</h2>
+        <p class="muted">Build these skills to move closer to your recommended job.</p>
+        <div id="skillRoadmap" class="roadmap-list"></div>
+      </article>
+      <article class="dashboard-panel">
+        <h2>Scholarship matches</h2>
+        <div id="scholarshipRecommendations" class="recommendation-list"></div>
+      </article>
+      <article class="dashboard-panel">
+        <h2>Education loan guidance</h2>
+        <div id="loanRecommendation"></div>
+      </article>
+    </section>
+  </main>
+  <script src="../auth.js"></script>
+  <script src="dashboard.js"></script>
+</body>
+</html>

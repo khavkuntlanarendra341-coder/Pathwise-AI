@@ -1,7 +1,9 @@
 const FinPathWizard = (() => {
   const STORAGE_KEY = 'finpath_student_onboarding_v1';
+  const SESSION_KEY = 'finpath_ai_session_v1';
+  const USERS_KEY = 'finpath_ai_users_v1';
   const steps = [
-    { title: 'Step 1 — Personal', fields: ['name', 'age', 'country', 'city'] },
+    { title: 'Step 1 — Personal', fields: ['name', 'age', 'country', 'caste', 'city'] },
     { title: 'Step 2 — Education', fields: ['educationLevel', 'degree', 'major', 'college', 'yearOfStudy', 'gpa'] },
     { title: 'Step 3 — Skills', fields: ['skills'] },
     { title: 'Step 4 — Career goals', fields: ['desiredCareer', 'preferredIndustries', 'preferredCountries', 'preferredCities', 'targetSalary', 'higherEducationInterest'] },
@@ -18,6 +20,22 @@ const FinPathWizard = (() => {
 
   function persistData(data) {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+  }
+
+  function persistProfileForCurrentUser(data) {
+    const session = JSON.parse(localStorage.getItem(SESSION_KEY) || 'null');
+    if (!session) return;
+
+    session.profile = data;
+    localStorage.setItem(SESSION_KEY, JSON.stringify(session));
+
+    const users = JSON.parse(localStorage.getItem(USERS_KEY) || '[]');
+    const userIndex = users.findIndex((user) => user.id === session.id || user.email === session.email);
+    if (userIndex >= 0) {
+      users[userIndex].profile = data;
+      users[userIndex].updatedAt = new Date().toISOString();
+      localStorage.setItem(USERS_KEY, JSON.stringify(users));
+    }
   }
 
   function initWizard() {
@@ -113,6 +131,7 @@ const FinPathWizard = (() => {
         name: wizardForm.elements.name.value,
         age: wizardForm.elements.age.value,
         country: wizardForm.elements.country.value,
+        caste: wizardForm.elements.caste.value,
         city: wizardForm.elements.city.value,
         educationLevel: wizardForm.elements.educationLevel.value,
         degree: wizardForm.elements.degree.value,
@@ -141,13 +160,14 @@ const FinPathWizard = (() => {
 
       Object.assign(data, payload);
       persistData(data);
+      persistProfileForCurrentUser(data);
       return data;
     }
 
     function updateSummary(data) {
       const fields = {
         personal: [
-          ['Name', data.name], ['Age', data.age], ['Country', data.country], ['City', data.city]
+          ['Name', data.name], ['Age', data.age], ['Country', data.country], ['Category', data.caste], ['City', data.city]
         ],
         education: [
           ['Education', data.educationLevel], ['Degree', data.degree], ['Major', data.major], ['College', data.college], ['Year', data.yearOfStudy], ['GPA', data.gpa]
@@ -191,22 +211,82 @@ const FinPathWizard = (() => {
       }
     });
 
-    finishBtn.addEventListener('click', () => {
-      if (!wizardForm.checkValidity()) {
-        wizardForm.reportValidity();
-        return;
-      }
+    finishBtn.addEventListener('click', async () => {
+  if (!wizardForm.checkValidity()) {
+    wizardForm.reportValidity();
+    return;
+  }
 
-      const data = collectDataFromForm();
-      updateSummary(data);
-      summary.hidden = false;
-      finishBtn.textContent = 'Saved';
-      finishBtn.disabled = true;
-      panels.forEach((panel) => panel.classList.toggle('active', false));
-      panels[0].classList.add('active');
-      updateProgress();
+  const data = collectDataFromForm();
+
+  // Convert the wizard data into the format expected by FastAPI
+  const gpaMatch = String(data.gpa).match(/[\d.]+/);
+  const cgpa = gpaMatch ? parseFloat(gpaMatch[0]) : NaN;
+
+  const analysisPayload = {
+    education: data.educationLevel,
+    cgpa: cgpa,
+    skills: data.skills,
+    interests: data.preferredIndustries
+      ? data.preferredIndustries.split(',').map(item => item.trim())
+      : [],
+    career_goal: data.desiredCareer,
+    budget: parseFloat(data.maxBudget),
+    caste: data.caste,
+    family_income: parseFloat(data.familyIncome),
+    savings: parseFloat(data.savings),
+    existing_loans: parseFloat(data.existingLoans),
+    max_loan: parseFloat(data.maxLoan)
+  };
+
+  if (Number.isNaN(cgpa) || Number.isNaN(analysisPayload.budget)) {
+    alert('Please enter a valid GPA/CGPA and education budget.');
+    return;
+  }
+
+  finishBtn.textContent = 'Analyzing...';
+  finishBtn.disabled = true;
+
+  try {
+    const response = await fetch('http://127.0.0.1:8000/api/analyze', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(analysisPayload)
     });
 
+    if (!response.ok) {
+      throw new Error(`Backend error: ${response.status}`);
+    }
+
+    const result = await response.json();
+
+    const session = JSON.parse(localStorage.getItem(SESSION_KEY) || 'null');
+    if (session) {
+      session.analysis = result;
+      localStorage.setItem(SESSION_KEY, JSON.stringify(session));
+    }
+    localStorage.setItem(
+      'finpath_analysis_result_v1',
+      JSON.stringify(result)
+    );
+
+    updateSummary(data);
+    summary.hidden = false;
+
+    finishBtn.textContent = 'Analysis Complete';
+    window.location.assign('dashboard/');
+
+    console.log('AI Analysis Result:', result);
+
+  } catch (error) {
+    console.error('Analysis failed:', error);
+    alert('Could not connect to the PathWise AI backend. Make sure FastAPI is running.');
+    finishBtn.textContent = 'Finish';
+    finishBtn.disabled = false;
+  }
+});
     saveBtn.addEventListener('click', () => {
       const data = collectDataFromForm();
       updateSummary(data);

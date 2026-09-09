@@ -7,8 +7,10 @@ const FinPathAuth = (() => {
     login: '/login/',
     signup: '/signup/',
     dashboard: '/dashboard/',
-    onboarding: '/onboarding/'
+    onboarding: '/onboarding-wizard.html'
   };
+
+  const PROFILE_KEY = 'finpath_student_onboarding_v1';
 
   function ensureStorage() {
     if (!window.localStorage) {
@@ -123,6 +125,10 @@ const FinPathAuth = (() => {
       updatedAt: user.updatedAt
     };
 
+    if (user.profile) {
+      session.profile = user.profile;
+    }
+
     window.localStorage.setItem(SESSION_KEY, JSON.stringify(session));
   }
 
@@ -187,33 +193,51 @@ const FinPathAuth = (() => {
     });
   }
 
-  async function login(email, password) {
-    ensureStorage();
 
-    const trimmedEmail = String(email || '').trim().toLowerCase();
-    const trimmedPassword = String(password || '');
+async function login(email, password) {
+  ensureStorage();
 
-    if (!isValidEmail(trimmedEmail)) {
-      throw new Error('Enter a valid registered email.');
-    }
+  const trimmedEmail = String(email || '').trim().toLowerCase();
+  const trimmedPassword = String(password || '');
 
-    const users = loadUsers();
-    const user = users.find((item) => item.email === trimmedEmail);
-
-    if (!user) {
-      throw new Error('No account found for that email.');
-    }
-
-    const storedSaltBytes = hexToBytes(user.passwordSalt);
-    const { passwordHash } = await hashPassword(trimmedPassword, storedSaltBytes);
-
-    if (passwordHash !== user.passwordHash) {
-      throw new Error('Invalid password.');
-    }
-
-    setCurrentSession(user);
-    return { user, redirect: route.dashboard };
+  if (!isValidEmail(trimmedEmail)) {
+    throw new Error('Enter a valid email address.');
   }
+
+  if (!trimmedPassword) {
+    throw new Error('Enter your password.');
+  }
+
+  const users = loadUsers();
+  const registeredUser = users.find((candidate) => candidate.email === trimmedEmail);
+  let user;
+
+  if (registeredUser) {
+    const { passwordHash } = await hashPassword(password, hexToBytes(registeredUser.passwordSalt));
+    if (passwordHash !== registeredUser.passwordHash) {
+      throw new Error('Email or password is incorrect.');
+    }
+    user = registeredUser;
+  } else {
+    user = {
+      id: 'demo-user',
+      name: trimmedEmail.split('@')[0],
+      email: trimmedEmail,
+      authProvider: 'demo',
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+      profile: JSON.parse(window.localStorage.getItem(PROFILE_KEY) || 'null')
+    };
+  }
+
+  setCurrentSession(user);
+
+  return {
+    user,
+    redirect: route.dashboard
+  };
+}
+
 
   function logout() {
     clearCurrentSession();
@@ -227,7 +251,7 @@ const FinPathAuth = (() => {
       window.location.href = route.login;
     }
 
-    if (session && currentPath.startsWith(route.login)) {
+    if (session && (currentPath === '/' || currentPath.startsWith(route.login))) {
       window.location.href = route.dashboard;
     }
 

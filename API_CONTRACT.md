@@ -11,7 +11,12 @@
   "skills": [],
   "interests": [],
   "career_goal": "string",
-  "budget": 0
+  "budget": 0,
+  "caste": "General",
+  "family_income": 0,
+  "savings": 0,
+  "existing_loans": 0,
+  "max_loan": 0
 }
 
 {
@@ -22,5 +27,8 @@
   "scholarship": 0,
   "net_cost": 0,
   "salary": "string",
-  "skills_to_develop": []
+  "skills_to_develop": [],
+  "colleges": [],
+  "scholarship_matches": [],
+  "loan_recommendation": {}
 }
