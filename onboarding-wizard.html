@@ -1,0 +1,428 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FinPath AI | Student Onboarding Wizard</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="wizard-body">
+  <div class="wizard-shell">
+    <aside class="wizard-sidebar">
+      <a class="brand" href="index.html">
+        <span class="brand-mark">F</span>
+        <span class="brand-wordmark">FinPath AI</span>
+      </a>
+
+      <div class="wizard-sidebar-content">
+        <span class="section-label light-label">Student onboarding</span>
+        <h1>Build your student profile</h1>
+        <div class="wizard-progress-block">
+          <div class="wizard-progress-header">
+            <span class="progress-label">Profile completion</span>
+            <span class="progress-percent" id="progressPercent">0%</span>
+          </div>
+          <div class="progress-track">
+            <span class="progress-fill" id="progressFill"></span>
+          </div>
+        </div>
+
+        <div class="wizard-step-list">
+          <div class="wizard-step active" data-step-indicator="0">
+            <span class="wizard-step-number">01</span>
+            <span class="wizard-step-name">Personal</span>
+          </div>
+          <div class="wizard-step" data-step-indicator="1">
+            <span class="wizard-step-number">02</span>
+            <span class="wizard-step-name">Education</span>
+          </div>
+          <div class="wizard-step" data-step-indicator="2">
+            <span class="wizard-step-number">03</span>
+            <span class="wizard-step-name">Skills</span>
+          </div>
+          <div class="wizard-step" data-step-indicator="3">
+            <span class="wizard-step-number">04</span>
+            <span class="wizard-step-name">Career goals</span>
+          </div>
+          <div class="wizard-step" data-step-indicator="4">
+            <span class="wizard-step-number">05</span>
+            <span class="wizard-step-name">Financial</span>
+          </div>
+          <div class="wizard-step" data-step-indicator="5">
+            <span class="wizard-step-number">06</span>
+            <span class="wizard-step-name">Preferences</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="wizard-sidebar-footer">
+        <a class="button button-secondary light-button" href="dashboard/index.html">Save and return</a>
+      </div>
+    </aside>
+
+    <main class="wizard-content">
+      <section class="wizard-top">
+        <div>
+          <span class="section-label dark-label">FinPath AI Student Profile</span>
+          <h2 id="wizardTitle">Step 1 — Personal</h2>
+        </div>
+        <div class="wizard-top-actions">
+          <span class="wizard-state" id="wizardStepState">1 / 6</span>
+        </div>
+      </section>
+
+      <section class="wizard-card">
+        <form id="studentWizardForm" class="wizard-form">
+          <div class="wizard-step-panels">
+            <section class="wizard-panel active" data-panel="0">
+              <div class="panel-title-row">
+                <span class="panel-title">Personal details</span>
+              </div>
+              <div class="form-grid two-columns">
+                <div class="form-field">
+                  <label for="name">Name</label>
+                  <input type="text" id="name" name="name" placeholder="Student name" required />
+                </div>
+                <div class="form-field">
+                  <label for="age">Age</label>
+                  <input type="number" id="age" name="age" min="15" max="80" required />
+                </div>
+                <div class="form-field">
+                  <label for="country">Country</label>
+                  <select id="country" name="country" required>
+                    <option value="">Select country</option>
+                    <option>United States</option>
+                    <option>United Kingdom</option>
+                    <option>India</option>
+                    <option>Canada</option>
+                    <option>Australia</option>
+                  </select>
+                </div>
+                <div class="form-field">
+                  <label for="city">City</label>
+                  <input type="text" id="city" name="city" placeholder="City" required />
+                </div>
+              </div>
+            </section>
+
+            <section class="wizard-panel" data-panel="1">
+              <div class="panel-title-row">
+                <span class="panel-title">Education background</span>
+              </div>
+              <div class="form-grid two-columns">
+                <div class="form-field">
+                  <label for="educationLevel">Current education level</label>
+                  <select id="educationLevel" name="educationLevel" required>
+                    <option value="">Select level</option>
+                    <option>High School</option>
+                    <option>Undergraduate</option>
+                    <option>Graduate</option>
+                    <option>Postgraduate</option>
+                  </select>
+                </div>
+                <div class="form-field">
+                  <label for="degree">Degree</label>
+                  <input type="text" id="degree" name="degree" placeholder="B.Sc., Diploma..." required />
+                </div>
+                <div class="form-field">
+                  <label for="major">Major</label>
+                  <input type="text" id="major" name="major" placeholder="Major" required />
+                </div>
+                <div class="form-field">
+                  <label for="college">College</label>
+                  <input type="text" id="college" name="college" placeholder="College" required />
+                </div>
+                <div class="form-field">
+                  <label for="yearOfStudy">Year of study</label>
+                  <select id="yearOfStudy" name="yearOfStudy" required>
+                    <option value="">Select year</option>
+                    <option>Year 1</option>
+                    <option>Year 2</option>
+                    <option>Year 3</option>
+                    <option>Year 4</option>
+                    <option>Graduate</option>
+                  </select>
+                </div>
+                <div class="form-field">
+                  <label for="gpa">GPA / CGPA / Percentage</label>
+                  <input type="text" id="gpa" name="gpa" placeholder="e.g. 8.8 CGPA" required />
+                </div>
+              </div>
+            </section>
+
+            <section class="wizard-panel" data-panel="2">
+              <div class="panel-title-row">
+                <span class="panel-title">Skills and proficiency</span>
+              </div>
+              <div class="skills-layout">
+                <div class="skills-grid">
+                  <div class="skill-row">
+                    <label class="skill-option">
+                      <input type="checkbox" name="skills" value="Programming" />
+                      <span>Programming</span>
+                    </label>
+                    <select class="skill-level" name="Programming">
+                      <option>Beginner</option>
+                      <option selected>Intermediate</option>
+                      <option>Advanced</option>
+                    </select>
+                  </div>
+                  <div class="skill-row">
+                    <label class="skill-option">
+                      <input type="checkbox" name="skills" value="Data analysis" />
+                      <span>Data analysis</span>
+                    </label>
+                    <select class="skill-level" name="Data analysis">
+                      <option>Beginner</option>
+                      <option selected>Intermediate</option>
+                      <option>Advanced</option>
+                    </select>
+                  </div>
+                  <div class="skill-row">
+                    <label class="skill-option">
+                      <input type="checkbox" name="skills" value="Communication" />
+                      <span>Communication</span>
+                    </label>
+                    <select class="skill-level" name="Communication">
+                      <option>Beginner</option>
+                      <option selected>Intermediate</option>
+                      <option>Advanced</option>
+                    </select>
+                  </div>
+                  <div class="skill-row">
+                    <label class="skill-option">
+                      <input type="checkbox" name="skills" value="Leadership" />
+                      <span>Leadership</span>
+                    </label>
+                    <select class="skill-level" name="Leadership">
+                      <option>Beginner</option>
+                      <option selected>Intermediate</option>
+                      <option>Advanced</option>
+                    </select>
+                  </div>
+                  <div class="skill-row">
+                    <label class="skill-option">
+                      <input type="checkbox" name="skills" value="Design" />
+                      <span>Design</span>
+                    </label>
+                    <select class="skill-level" name="Design">
+                      <option>Beginner</option>
+                      <option selected>Intermediate</option>
+                      <option>Advanced</option>
+                    </select>
+                  </div>
+                  <div class="skill-row">
+                    <label class="skill-option">
+                      <input type="checkbox" name="skills" value="Marketing" />
+                      <span>Marketing</span>
+                    </label>
+                    <select class="skill-level" name="Marketing">
+                      <option>Beginner</option>
+                      <option selected>Intermediate</option>
+                      <option>Advanced</option>
+                    </select>
+                  </div>
+                  <div class="skill-row">
+                    <label class="skill-option">
+                      <input type="checkbox" name="skills" value="Mathematics" />
+                      <span>Mathematics</span>
+                    </label>
+                    <select class="skill-level" name="Mathematics">
+                      <option>Beginner</option>
+                      <option selected>Intermediate</option>
+                      <option>Advanced</option>
+                    </select>
+                  </div>
+                  <div class="skill-row">
+                    <label class="skill-option">
+                      <input type="checkbox" name="skills" value="Research" />
+                      <span>Research</span>
+                    </label>
+                    <select class="skill-level" name="Research">
+                      <option>Beginner</option>
+                      <option selected>Intermediate</option>
+                      <option>Advanced</option>
+                    </select>
+                  </div>
+                  <div class="skill-row">
+                    <label class="skill-option">
+                      <input type="checkbox" name="skills" value="AI/ML" />
+                      <span>AI/ML</span>
+                    </label>
+                    <select class="skill-level" name="AI/ML">
+                      <option>Beginner</option>
+                      <option selected>Intermediate</option>
+                      <option>Advanced</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="skill-add">
+                  <label class="form-field">
+                    <span>Add custom skill</span>
+                    <input type="text" id="customSkill" placeholder="e.g. Finance" />
+                  </label>
+                  <button class="button button-secondary" id="addSkill" type="button">+ Add skill</button>
+                </div>
+              </div>
+            </section>
+
+            <section class="wizard-panel" data-panel="3">
+              <div class="panel-title-row">
+                <span class="panel-title">Career goals</span>
+              </div>
+              <div class="form-grid two-columns">
+                <div class="form-field">
+                  <label for="desiredCareer">Desired career</label>
+                  <input type="text" id="desiredCareer" name="desiredCareer" placeholder="Desired career" required />
+                </div>
+                <div class="form-field">
+                  <label for="targetSalary">Target salary</label>
+                  <input type="number" id="targetSalary" name="targetSalary" placeholder="Annual salary" required />
+                </div>
+                <div class="form-field">
+                  <label for="preferredIndustries">Preferred industries</label>
+                  <input type="text" id="preferredIndustries" name="preferredIndustries" placeholder="Technology, Healthcare" required />
+                </div>
+                <div class="form-field">
+                  <label for="preferredCountries">Preferred countries</label>
+                  <input type="text" id="preferredCountries" name="preferredCountries" placeholder="Country list" required />
+                </div>
+                <div class="form-field">
+                  <label for="preferredCities">Preferred cities</label>
+                  <input type="text" id="preferredCities" name="preferredCities" placeholder="Preferred cities" required />
+                </div>
+                <div class="form-field">
+                  <label for="higherEducationInterest">Higher education interest</label>
+                  <select id="higherEducationInterest" name="higherEducationInterest" required>
+                    <option value="">Select</option>
+                    <option>Yes</option>
+                    <option>No</option>
+                    <option>Maybe</option>
+                  </select>
+                </div>
+              </div>
+            </section>
+
+            <section class="wizard-panel" data-panel="4">
+              <div class="panel-title-row">
+                <span class="panel-title">Financial situation</span>
+              </div>
+              <div class="form-grid two-columns">
+                <div class="form-field">
+                  <label for="familyIncome">Annual family income</label>
+                  <input type="number" id="familyIncome" name="familyIncome" placeholder="Annual income" required />
+                </div>
+                <div class="form-field">
+                  <label for="savings">Available savings</label>
+                  <input type="number" id="savings" name="savings" placeholder="Savings" required />
+                </div>
+                <div class="form-field">
+                  <label for="maxBudget">Maximum education budget</label>
+                  <input type="number" id="maxBudget" name="maxBudget" placeholder="Budget" required />
+                </div>
+                <div class="form-field">
+                  <label for="existingLoans">Existing loans</label>
+                  <input type="number" id="existingLoans" name="existingLoans" placeholder="Existing loans" required />
+                </div>
+                <div class="form-field">
+                  <label for="maxLoan">Maximum acceptable loan</label>
+                  <input type="number" id="maxLoan" name="maxLoan" placeholder="Loan limit" required />
+                </div>
+                <div class="form-field">
+                  <label for="scholarshipPreference">Scholarship preference</label>
+                  <select id="scholarshipPreference" name="scholarshipPreference" required>
+                    <option value="">Select</option>
+                    <option>Need-based</option>
+                    <option>Merit-based</option>
+                    <option>Both</option>
+                    <option>None</option>
+                  </select>
+                </div>
+              </div>
+            </section>
+
+            <section class="wizard-panel" data-panel="5">
+              <div class="panel-title-row">
+                <span class="panel-title">Preferences</span>
+              </div>
+              <div class="form-grid two-columns">
+                <div class="form-field">
+                  <label for="riskTolerance">Risk tolerance</label>
+                  <select id="riskTolerance" name="riskTolerance" required>
+                    <option value="">Select</option>
+                    <option>Low</option>
+                    <option>Medium</option>
+                    <option>High</option>
+                  </select>
+                </div>
+                <div class="form-field">
+                  <label for="studyMode">Preferred study mode</label>
+                  <select id="studyMode" name="studyMode" required>
+                    <option value="">Select</option>
+                    <option>Online</option>
+                    <option>Hybrid</option>
+                    <option>On-campus</option>
+                  </select>
+                </div>
+                <div class="form-field">
+                  <label for="relocate">Willingness to relocate</label>
+                  <select id="relocate" name="relocate" required>
+                    <option value="">Select</option>
+                    <option>Yes</option>
+                    <option>No</option>
+                    <option>Depends on program</option>
+                  </select>
+                </div>
+                <div class="form-field">
+                  <label for="workLifeBalance">Desired work-life balance</label>
+                  <select id="workLifeBalance" name="workLifeBalance" required>
+                    <option value="">Select</option>
+                    <option>Low stress</option>
+                    <option>Balanced</option>
+                    <option>High growth</option>
+                    <option>Flexible</option>
+                  </select>
+                </div>
+              </div>
+            </section>
+          </div>
+
+          <div class="wizard-summary" id="wizardSummary" hidden>
+            <div class="summary-card">
+              <span class="summary-label">Student Profile Summary</span>
+              <div class="summary-grid">
+                <div>
+                  <span class="summary-heading">Personal</span>
+                  <div id="summaryPersonal" class="summary-content"></div>
+                </div>
+                <div>
+                  <span class="summary-heading">Education</span>
+                  <div id="summaryEducation" class="summary-content"></div>
+                </div>
+                <div>
+                  <span class="summary-heading">Career</span>
+                  <div id="summaryCareer" class="summary-content"></div>
+                </div>
+                <div>
+                  <span class="summary-heading">Financial</span>
+                  <div id="summaryFinancial" class="summary-content"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="wizard-actions">
+            <button class="button button-secondary" id="backBtn" type="button">Back</button>
+            <button class="button button-secondary" id="saveBtn" type="button">Save Draft</button>
+            <button class="button button-primary" id="nextBtn" type="button">Next</button>
+            <button class="button button-primary" id="finishBtn" type="button" hidden>Finish</button>
+          </div>
+        </form>
+      </section>
+    </main>
+  </div>
+
+  <script src="auth.js"></script>
+  <script src="wizard.js"></script>
+</body>
+</html>

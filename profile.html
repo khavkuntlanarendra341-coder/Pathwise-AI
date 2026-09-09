@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FinPath AI Student Profile</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <span class="logo-mark">F</span>
+        <span class="brand-text">FinPath AI</span>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-label">Workspace</div>
+        <a class="nav-link" href="index.html">
+          <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M3 10.5 12 3l9 7.5V21h-6v-6H9v6H3z" stroke="currentColor" stroke-width="2" /></svg>
+          <span>Dashboard</span>
+        </a>
+        <a class="nav-link active" href="profile.html">
+          <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM4 20a8 8 0 0 1 16 0" stroke="currentColor" stroke-width="2" /></svg>
+          <span>Student Profile</span>
+        </a>
+        <a class="nav-link" href="pages/career.html">
+          <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M4 19h16M6 15l3-4 4 3 4-7" stroke="currentColor" stroke-width="2" /></svg>
+          <span>Career Fit</span>
+        </a>
+        <a class="nav-link" href="pages/pathway.html">
+          <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M3 7h7l3 4 3-4h6v10H3z" stroke="currentColor" stroke-width="2" /></svg>
+          <span>Pathways</span>
+        </a>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-label">Planning</div>
+        <a class="nav-link" href="pages/compare.html">
+          <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z" stroke="currentColor" stroke-width="2" /></svg>
+          <span>Compare Programs</span>
+        </a>
+        <a class="nav-link" href="pages/scholarships.html">
+          <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M12 3l8 4-8 4-8-4 8-4zM4 11l8 4 8-4M4 15l8 4 8-4" stroke="currentColor" stroke-width="2" /></svg>
+          <span>Scholarships</span>
+        </a>
+        <a class="nav-link" href="pages/calculator.html">
+          <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M4 5h16v14H4zM8 9h8M8 13h5" stroke="currentColor" stroke-width="2" /></svg>
+          <span>Calculator</span>
+        </a>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-label">AI</div>
+        <a class="nav-link" href="pages/risk.html">
+          <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M12 2l8 4v6c0 5-3 7-8 10-5-3-8-5-8-10V6l8-4z" stroke="currentColor" stroke-width="2" /></svg>
+          <span>Risk Analysis</span>
+        </a>
+        <a class="nav-link" href="pages/scenario.html">
+          <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M4 19a8-8 0 0 1 8-8 8 8 0 0 1 8 8" stroke="currentColor" stroke-width="2" /></svg>
+          <span>Scenario Lab</span>
+        </a>
+        <a class="nav-link" href="pages/copilot.html">
+          <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M4 12c0-4.4 3.6-8 8-8s8 3.6 8 8-3.6 8-8 8H4l2-2" stroke="currentColor" stroke-width="2" /></svg>
+          <span>Copilot</span>
+        </a>
+      </div>
+
+      <div class="sidebar-footer">
+        <a href="pages/saved.html" class="saved-link">
+          <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M5 4h14v16l-7-4-7 4z" stroke="currentColor" stroke-width="2" /></svg>
+          <span>Saved Pathways</span>
+        </a>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <section class="topbar">
+        <div>
+          <span class="crumb">Student Profile</span>
+          <h1>Profile & Onboarding</h1>
+        </div>
+        <div class="topbar-actions">
+          <button class="icon-button" id="themeToggle" aria-label="Toggle theme">
+            <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M12 3v2M12 19v2M4.6 4.6l1.4 1.4M18 18l1.4 1.4M3 12h2M19 12h2M4.6 19.4l1.4-1.4M18 6l1.4-1.4M12 6a6 6 0 1 0 0 12 6 6 0 0 0 0-12z" stroke="currentColor" stroke-width="2" /></svg>
+          </button>
+          <button class="primary-button small-button">Save profile</button>
+        </div>
+      </section>
+
+      <section class="profile-layout">
+        <article class="panel profile-panel">
+          <div class="profile-head">
+            <div class="avatar-wrap">
+              <span class="avatar">AS</span>
+            </div>
+            <div class="profile-head-copy">
+              <span class="profile-status">Student profile</span>
+              <h2>Avery Student</h2>
+              <span class="profile-meta">Class of 2027 • Data Science Track</span>
+            </div>
+            <span class="risk-badge medium">Finance-ready</span>
+          </div>
+
+          <div class="profile-form">
+            <div class="two-column">
+              <div class="form-group">
+                <label>First name</label>
+                <input type="text" value="Avery" />
+              </div>
+              <div class="form-group">
+                <label>Last name</label>
+                <input type="text" value="Student" />
+              </div>
+            </div>
+            <div class="two-column">
+              <div class="form-group">
+                <label>Email</label>
+                <input type="email" value="avery.demo@student.finpath.ai" />
+              </div>
+              <div class="form-group">
+                <label>Preferred country</label>
+                <select>
+                  <option>United States</option>
+                  <option>United Kingdom</option>
+                  <option>India</option>
+                </select>
+              </div>
+            </div>
+            <div class="two-column">
+              <div class="form-group">
+                <label>Academic score</label>
+                <input type="text" value="92 / 100" />
+              </div>
+              <div class="form-group">
+                <label>Career focus</label>
+                <input type="text" value="Data Scientist" />
+              </div>
+            </div>
+            <div class="two-column">
+              <div class="form-group">
+                <label>Monthly budget</label>
+                <input type="text" value="$900" />
+              </div>
+              <div class="form-group">
+                <label>Risk tolerance</label>
+                <select>
+                  <option>Moderate</option>
+                  <option>Conservative</option>
+                  <option>Aggressive</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="panel profile-aside">
+          <div class="panel-head compact">
+            <div>
+              <span class="panel-label">Student Snapshot</span>
+              <h3>FinPath Score</h3>
+            </div>
+          </div>
+          <div class="score-card">
+            <div class="score-ring">
+              <span class="score-number">88</span>
+              <span class="score-label">Readiness</span>
+            </div>
+          </div>
+          <div class="profile-stats">
+            <div class="profile-stat">
+              <span class="stat-label">Career fit</span>
+              <span class="stat-value positive">High</span>
+            </div>
+            <div class="profile-stat">
+              <span class="stat-label">Scholarship fit</span>
+              <span class="stat-value positive">2 matches</span>
+            </div>
+            <div class="profile-stat">
+              <span class="stat-label">Monthly affordability</span>
+              <span class="stat-value warning">Stable</span>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section class="content-grid lower-grid">
+        <article class="panel">
+          <div class="panel-head compact">
+            <div>
+              <span class="panel-label">Academic Profile</span>
+              <h3>Assessment</h3>
+            </div>
+          </div>
+          <div class="assessment-list">
+            <div class="assessment-row">
+              <span class="assessment-label">Academic performance</span>
+              <div class="bar-track mini-track"><div class="bar-fill fill-green" style="width:92%"></div></div>
+              <span class="assessment-value">92%</span>
+            </div>
+            <div class="assessment-row">
+              <span class="assessment-label">Skill readiness</span>
+              <div class="bar-track mini-track"><div class="bar-fill fill-blue" style="width:88%"></div></div>
+              <span class="assessment-value">88%</span>
+            </div>
+            <div class="assessment-row">
+              <span class="assessment-label">Financial literacy</span>
+              <div class="bar-track mini-track"><div class="bar-fill fill-indigo" style="width:79%"></div></div>
+              <span class="assessment-value">79%</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="panel">
+          <div class="panel-head compact">
+            <div>
+              <span class="panel-label">Career Goals</span>
+              <h3>Interest Map</h3>
+            </div>
+          </div>
+          <div class="goals-list">
+            <span class="goal-tag">Analytics</span>
+            <span class="goal-tag">Machine Learning</span>
+            <span class="goal-tag">Product Strategy</span>
+            <span class="goal-tag">Data Visualization</span>
+            <span class="goal-tag">Business Intelligence</span>
+          </div>
+        </article>
+
+        <article class="panel">
+          <div class="panel-head compact">
+            <div>
+              <span class="panel-label">Pathway Match</span>
+              <h3>Program Fit</h3>
+            </div>
+            <a class="small-link" href="pages/pathway.html">Open</a>
+          </div>
+          <div class="program-fit">
+            <div class="fit-row">
+              <span class="fit-label">Data Science</span>
+              <span class="fit-score positive">96%</span>
+            </div>
+            <div class="fit-row">
+              <span class="fit-label">Analytics</span>
+              <span class="fit-score positive">91%</span>
+            </div>
+            <div class="fit-row">
+              <span class="fit-label">Business Intelligence</span>
+              <span class="fit-score warning">76%</span>
+            </div>
+          </div>
+        </article>
+      </section>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
