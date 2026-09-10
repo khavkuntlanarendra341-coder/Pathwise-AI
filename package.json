@@ -21,13 +21,12 @@
     "recharts": "latest",
     "tailwind-merge": "latest",
     "tailwindcss": "latest",
-    "typescript": "latest",
-    "vite": "latest"
+    "typescript": "latest"
   },
   "devDependencies": {
     "@types/node": "^26.5.0",
     "@types/react": "latest",
-    "@types/react-dom": "latest"
+    "@types/react-dom": "latest",
+    "vite": "^8.2.2"
   }
 }
-
